@@ -13,7 +13,7 @@ class Tile {
         if (!!this.encounter) {
             this.html.innerText = 'encounter'
         } else {
-            this.html.innerText = '.'
+            this.html.innerText = `${this.x}, ${this.y}`
         }
         //adds a character to a tile's html based on what encounter it has
     }

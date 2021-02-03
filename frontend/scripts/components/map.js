@@ -6,7 +6,6 @@ class Map {
 
     generateTiles(sideLength) {
         let tileObj = {}
-        // let tileObj = []
         for(let x = 0; x < sideLength; x++) {
             let col = []
             for(let y = 0; y < sideLength; y++) {
@@ -14,7 +13,6 @@ class Map {
                 col.push(tile)
             }
             tileObj[x] = col
-            // tileObj.push(col)
         }
         return tileObj
     }
@@ -23,6 +21,9 @@ class Map {
         this.html = document.createElement('div')
         this.html.id = 'map'
         main.append(this.html)
+        for (const x in this.tiles) {
+            this.tiles[x].forEach((t) => this.html.append(t.html))
+        }
     }
 
     removeMap = () => this.mapObj.remove()
