@@ -26,5 +26,5 @@ class Map {
         }
     }
 
-    removeMap = () => this.mapObj.remove()
+    removeMap = () => this.html.remove()
 }
