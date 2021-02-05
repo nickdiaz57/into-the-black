@@ -25,7 +25,7 @@ var Event = {
     SPIDERS: {
         icon: "O",
         text: ["Warnings and distress calls flash across your console as you approach the outpost.\nYour radio crackles to life with a frantic message.",
-        "The station has been overrun by giant alien spiders!\nNo time to explain. The survivor pleads for assistance."
+        "The station has been overrun by giant alien spiders!\nNo time to explain. The survivor pleads for assistance."]
         //research station overwhelmed by giant alien spiders
         //attempt rescue, gain crewmate on success or lose crewmate/take damage on fail
     },
