@@ -1,5 +1,6 @@
 const main = document.querySelector('main')
-// let map = new Map(5)
+let map = new Map
+map.displayMap()
 // const container = document.getElementById("container");
 
 // function makeRows(rows, cols) {
