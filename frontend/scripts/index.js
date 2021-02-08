@@ -1,7 +1,7 @@
 const main = document.querySelector('main')
-let map = new Map
+const map = new Map
 map.displayMap()
-map.addPlayer()
+const player = map.addPlayer()
 
 document.addEventListener("keydown", function(e) {
     if (e.key === "ArrowLeft") {

@@ -34,9 +34,11 @@ class Map {
         //find way to add players name with form before displaying map
         this.player = new Player
         this.tiles[0][0].html.innerText = this.player.icon
+        return this.player
     }
 
     movePlayer = () => {
+        //recheck behavior at map edges
         let tile = this.tiles[this.player.position[1]][this.player.position[0]]
         tile.html.innerText = this.player.icon
     }

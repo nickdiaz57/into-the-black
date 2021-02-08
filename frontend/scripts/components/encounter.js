@@ -25,7 +25,7 @@ var Event = {
     SPIDERS: {
         icon: "O",
         text: ["Warnings and distress calls flash across your console as you approach the outpost.\nYour radio crackles to life with a frantic message.",
-        "The station has been overrun by giant alien spiders!\nNo time to explain. The survivor pleads for assistance."]
+        "The station has been overrun by giant alien spiders!\nNo time to explain. The survivors plead for assistance."]
         //research station overwhelmed by giant alien spiders
         //attempt rescue, gain crewmate on success or lose crewmate/take damage on fail
     },
@@ -84,9 +84,14 @@ var Event = {
 
     STAR: {
         icon: "N",
-        text: ["Your cabin is bathed in the eerie bluish-white light of a nearby neutron star.\nMassive jets carry superheated gas thousands of miles out from the poles of the star.",
+        text: ["Your cabin is bathed in the eerie bluish-white light of a nearby neutron star.\nMassive jets carry superheated plasma thousands of miles out from the poles of the star.",
         "Alerts flash on your console. Passing through the jets can temporarily overcharge your drive core.\nHowever, your ship may not be able to handle the strain..."]
         //neutron star, using it will cause damage but greatly increase next jump
+    },
+
+    BEACON: {
+        icon: "G",
+        text: "Telemetry data for the next system loads to your terminal as the beacon comes into range.\nOne step closer to home..."
     }
 }
 

@@ -11,26 +11,34 @@ class Player {
     }
     //add conditions for edges of map
     moveRight(dist=1) {
-        let currentPosition = this.position
-        let newPosition = [currentPosition[0] + dist, currentPosition[1]]
-        this.position = newPosition
+        if (this.position[0] < 29) {
+            let currentPosition = this.position
+            let newPosition = [currentPosition[0] + dist, currentPosition[1]]
+            this.position = newPosition
+        }
     }
 
     moveLeft(dist=1) {
-        let currentPosition = this.position
-        let newPosition = [currentPosition[0] - dist, currentPosition[1]]
-        this.position = newPosition
+        if (this.position[0] > 0) {
+            let currentPosition = this.position
+            let newPosition = [currentPosition[0] - dist, currentPosition[1]]
+            this.position = newPosition
+        }
     }
 
     moveUp(dist=1) {
-        let currentPosition = this.position
-        let newPosition = [currentPosition[0], currentPosition[1] - dist]
-        this.position = newPosition
+        if (this.position[1] > 0) {
+            let currentPosition = this.position
+            let newPosition = [currentPosition[0], currentPosition[1] - dist]
+            this.position = newPosition
+        }
     }
 
     moveDown(dist=1) {
-        let currentPosition = this.position
-        let newPosition = [currentPosition[0], currentPosition[1] + dist]
-        this.position = newPosition
+        if (this.position[1] < 29) {
+            let currentPosition = this.position
+            let newPosition = [currentPosition[0], currentPosition[1] + dist]
+            this.position = newPosition
+        }
     }
 }
