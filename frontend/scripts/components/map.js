@@ -8,10 +8,8 @@ class Map {
 
     generateTiles(sideLength=30) {
         let tileObj = {}
-        // for(let x = 0; x < sideLength; x++) {
         for(let y = 0; y < sideLength; y++) {
             let col = []
-            // for(let y = 0; y < sideLength; y++) {
             for(let x = 0; x < sideLength; x++) {
                 let tile = new Tile(x,y)
                 col.push(tile)
@@ -37,12 +35,6 @@ class Map {
         this.player = new Player
         this.tiles[0][0].html.innerText = this.player.icon
     }
-
-    // findTile = () => {
-    //     for (const x in this.tiles) {
-    //         return this.tiles[x].find(t => equals(t.position, this.player.position))
-    //     }
-    // }
 
     movePlayer = () => {
         let tile = this.tiles[this.player.position[1]][this.player.position[0]]

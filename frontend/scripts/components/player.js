@@ -11,28 +11,24 @@ class Player {
     }
     //add conditions for edges of map
     moveRight(dist=1) {
-        //add 1 to x
         let currentPosition = this.position
         let newPosition = [currentPosition[0] + dist, currentPosition[1]]
         this.position = newPosition
     }
 
     moveLeft(dist=1) {
-        //subtract 1 from x
         let currentPosition = this.position
         let newPosition = [currentPosition[0] - dist, currentPosition[1]]
         this.position = newPosition
     }
 
     moveUp(dist=1) {
-        //subtract 1 from y
         let currentPosition = this.position
         let newPosition = [currentPosition[0], currentPosition[1] - dist]
         this.position = newPosition
     }
 
     moveDown(dist=1) {
-        //add 1 to y
         let currentPosition = this.position
         let newPosition = [currentPosition[0], currentPosition[1] + dist]
         this.position = newPosition

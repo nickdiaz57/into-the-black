@@ -1,6 +1,23 @@
 const main = document.querySelector('main')
 let map = new Map
 map.displayMap()
+map.addPlayer()
+
+document.addEventListener("keydown", function(e) {
+    if (e.key === "ArrowLeft") {
+      map.player.moveLeft();
+      map.movePlayer();
+    } else if (e.key === "ArrowRight") {
+        map.player.moveRight();
+        map.movePlayer();
+    } else if (e.key === "ArrowUp") {
+        map.player.moveUp();
+        map.movePlayer();
+    } else if (e.key === "ArrowDown") {
+        map.player.moveDown();
+        map.movePlayer();
+    }
+  });
 // const container = document.getElementById("container");
 
 // function makeRows(rows, cols) {
