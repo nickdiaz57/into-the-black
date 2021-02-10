@@ -1,9 +1,3 @@
-class Encounter {
-    constructor() {
-        console.log('Encounter loaded')
-    }
-}
-
 var Event = {
     OUTPOST: {
         icon: "O",
