@@ -4,12 +4,14 @@ class Player {
         this.position = [0,0] //starts in top left corner
         this.fuel = 100
         this.health = 100
+        this.scrap = 20
         this.inventory = []
+        this.crew = []
         this.icon = "@"
         this.sightRange = 2
         this.moveRange = 1
     }
-    //add conditions for edges of map
+    //add conditions for edges of map, moving beyond edge with increased move range
     moveRight(dist=1) {
         if (this.position[0] < 29) {
             let currentPosition = this.position

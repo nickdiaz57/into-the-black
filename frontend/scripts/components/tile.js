@@ -1,29 +1,32 @@
 class Tile {
-    constructor(x=0, y=0, encounter=undefined) {
+    constructor(x=0, y=0, event=undefined) {
         this.revealed = false
         this.occupied = false
         this.visited = false
-        this.encounter = encounter
+        this.event = event
         this.x = x
         this.y = y
         this.position = [x, y]
-        this.populateTile()
+        this.createHTML()
+    }
+
+    createHTML() {
+        if (!this.html) {this.html = document.createElement('div')}
     }
 
     populateTile = () => {
-        if (!this.html) {this.html = document.createElement('div')}
-
-        if (!!this.encounter) {
-            this.html.innerText = 'encounter'
+        if (!!this.event) {
+            this.html.innerText = this.event.icon
         } else {
             this.html.innerText = '.'
             // this.html.innerText = `${this.x}, ${this.y}`
         }
-        //adds a character to a tile's html based on what encounter it has
     }
-
+    
     revealTile = () => {
+        //adds a character to a tile's html based on what event it has
         this.revealed = true
+        this.populateTile()
     }
 }
 

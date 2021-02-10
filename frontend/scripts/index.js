@@ -5,17 +5,17 @@ const player = map.addPlayer()
 
 document.addEventListener("keydown", function(e) {
     if (e.key === "ArrowLeft") {
-      map.player.moveLeft();
-      map.movePlayer();
+      // map.player.moveLeft();
+      map.movePlayer("left");
     } else if (e.key === "ArrowRight") {
-        map.player.moveRight();
-        map.movePlayer();
+        // map.player.moveRight();
+        map.movePlayer("right");
     } else if (e.key === "ArrowUp") {
-        map.player.moveUp();
-        map.movePlayer();
+        // map.player.moveUp();
+        map.movePlayer("up");
     } else if (e.key === "ArrowDown") {
-        map.player.moveDown();
-        map.movePlayer();
+        // map.player.moveDown();
+        map.movePlayer("down");
     }
   });
 // const container = document.getElementById("container");
