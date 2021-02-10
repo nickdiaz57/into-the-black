@@ -74,10 +74,11 @@ class Map {
         let player = this.player
         for (let y = player.position[1] - player.sightRange; y <= player.position[1] + player.sightRange; y++) {
             for (let x = player.position[0] - player.sightRange; x <= player.position[0] + player.sightRange; x++) {
-                // console.log(`${y}, ${x}`)
-                map.tiles[y][x].revealTile()
+                if(this.isValid(y) && this.isValid(x)) {map.tiles[y][x].revealTile()}
             }
             // console.log(y)
         }
     }
+    
+    isValid = (num) => (num >= 0 && num <= 29)
 }
