@@ -5,16 +5,12 @@ const player = map.addPlayer()
 
 document.addEventListener("keydown", function(e) {
     if (e.key === "ArrowLeft") {
-      // map.player.moveLeft();
       map.movePlayer("left");
     } else if (e.key === "ArrowRight") {
-        // map.player.moveRight();
         map.movePlayer("right");
     } else if (e.key === "ArrowUp") {
-        // map.player.moveUp();
         map.movePlayer("up");
     } else if (e.key === "ArrowDown") {
-        // map.player.moveDown();
         map.movePlayer("down");
     }
   });

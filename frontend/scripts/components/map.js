@@ -21,7 +21,7 @@ class Map {
         return tileObj
     }
 
-    addEvents() {
+    addEvents() {//add other events spread throughout map
         this.tiles[29][29].event = Event.BEACON
         const revealed = [this.tiles[29][29], this.tiles[28][29], this.tiles[27][29], this.tiles[29][28], this.tiles[29][27], this.tiles[28][28], this.tiles[27][27], this.tiles[27][28], this.tiles[28][27]]
         revealed.forEach(t => t.revealTile())
@@ -45,11 +45,10 @@ class Map {
         return this.player
     }
 
-    movePlayer = (dir) => {//reveal tiles as player moves
-        // let tile = this.tiles[this.player.position[1]][this.player.position[0]]
-        // tile.html.innerText = this.player.icon
-        let prevTile = this.tiles[this.player.position[1]][this.player.position[0]]
+    movePlayer = (dir) => {//change color of encounters to differ from player and unvisited encounters when player leaves
+        let prevTile = this.findPlayer()
         prevTile.populateTile()
+
         if (dir === "left") {
             this.player.moveLeft(this.player.moveRange);
           } else if (dir === "right") {
@@ -59,13 +58,26 @@ class Map {
           } else if (dir === "down") {
               this.player.moveDown(this.player.moveRange);
           }
-        let newTile = this.tiles[this.player.position[1]][this.player.position[0]]
+
+        this.seeTiles()
+        let newTile = this.findPlayer()
+        newTile.occupied = true
+        newTile.visited = true
         newTile.html.innerText = this.player.icon
-    }
+    }//fix revealed visited occupied attributes of tiles as player moves
 
     findPlayer = () => {
         return this.tiles[this.player.position[1]][this.player.position[0]]
     }
-}
 
-// [map.tiles[29][29], map.tiles[28][29], map.tiles[27][29], map.tiles[29][28], map.tiles[29][27], map.tiles[28][28], map.tiles[27][27]]
+    seeTiles = () => {//fix issues near edge of map
+        let player = this.player
+        for (let y = player.position[1] - player.sightRange; y <= player.position[1] + player.sightRange; y++) {
+            for (let x = player.position[0] - player.sightRange; x <= player.position[0] + player.sightRange; x++) {
+                // console.log(`${y}, ${x}`)
+                map.tiles[y][x].revealTile()
+            }
+            // console.log(y)
+        }
+    }
+}

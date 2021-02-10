@@ -19,14 +19,12 @@ class Tile {
             this.html.innerText = this.event.icon
         } else {
             this.html.innerText = '.'
-            // this.html.innerText = `${this.x}, ${this.y}`
         }
     }
     
     revealTile = () => {
-        //adds a character to a tile's html based on what event it has
         this.revealed = true
-        this.populateTile()
+        if (!this.occupied) {this.populateTile()} //fix this
     }
 }
 
