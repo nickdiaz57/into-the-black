@@ -1,4 +1,5 @@
 const main = document.querySelector('main')
+const api = new APIAdapter
 const map = new Map
 map.displayMap()
 const player = map.addPlayer()

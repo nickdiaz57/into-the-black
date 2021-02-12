@@ -34,3 +34,11 @@ class UsersController < ApplicationController
     end
 
 end
+
+# fetch('http://localhost:3000/users', {
+#     method: "POST",
+#     headers: {"Accepts": "application/json", "Content-Type": "application/json"},
+#     body: JSON.stringify({name: "Kirk"})
+# })
+# .then(res => res.json())
+# .then(console.log)
