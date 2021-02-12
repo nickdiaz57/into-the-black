@@ -53,6 +53,7 @@ class Map {
     
     movePlayer(dir) {//change color of encounters to differ from player and unvisited encounters when player leaves
         let prevTile = this.findPlayer()
+        prevTile.occupied = false
         prevTile.populateTile()
         
         if (dir === "left") {
@@ -70,7 +71,7 @@ class Map {
         newTile.occupied = true
         newTile.visited = true
         newTile.html.innerText = this.player.icon
-    }//fix revealed visited occupied attributes of tiles as player moves
+    }
     
     seeTiles() {
         let player = this.player
@@ -82,7 +83,7 @@ class Map {
     }
 
     
-    addEvents() {//add other events spread throughout map
+    addEvents() {
         this.tiles[29][29].event = Event.BEACON
         const revealed = [this.tiles[29][29], this.tiles[28][29], this.tiles[27][29], this.tiles[29][28], this.tiles[29][27], this.tiles[28][28], this.tiles[27][27], this.tiles[27][28], this.tiles[28][27]]
         revealed.forEach(t => t.revealTile())
