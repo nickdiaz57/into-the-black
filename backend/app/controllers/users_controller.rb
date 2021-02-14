@@ -11,18 +11,28 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.create(user_params)
-        if user.save
-            render json: user
+        exists = User.find_by(name: params[:name])
+        if exists
+            # render json: {error: "This user already exists.", user_id: exists.id, status: 400}
+            render json: exists
         else
-            render json: {error: "There was an error creating that user.", status: 400}
+            user = User.create(user_params)
+            if user.save
+                render json: user
+            else
+                render json: {error: "There was an error creating that user.", status: 400}
+            end
         end
     end
 
-    # def update
-    #     user = User.find_by_id(params[:id])
-    #     user.update(user_params)
-    # end
+    def update
+        user = User.find_by_id(params[:id])
+        if user.update(user_params)
+            render json: user
+        else
+            render json: {error: "There was an error updating that user.", status: 400}
+        end
+    end
 
     # def destroy
     # end

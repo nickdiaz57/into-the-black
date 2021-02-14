@@ -10,8 +10,9 @@ class GamesController < ApplicationController
     end
 
     def create
+        user = User.find_or_create_by(user_params)
         game = Game.create(game_params)
-        if game.save
+        if game.save && user.valid?
             render json: game
         else
             render json: {error: "There was an error submitting the record for that game.", status: 400}
@@ -32,7 +33,12 @@ class GamesController < ApplicationController
 
     private
 
+    def user_params
+        params.require(:user).permit(:name)
+    end
+
     def game_params
         params.require(:game).permit(:completed, :won, :user_id)
     end
+
 end
