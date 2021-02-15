@@ -13,7 +13,6 @@ class UsersController < ApplicationController
     def create
         exists = User.find_by(name: params[:name])
         if exists
-            # render json: {error: "This user already exists.", user_id: exists.id, status: 400}
             render json: exists
         else
             user = User.create(user_params)

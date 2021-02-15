@@ -7,10 +7,14 @@ const form = document.getElementById('name-form')
 form.addEventListener("submit", function(event) {
     event.preventDefault();
     // console.log(document.getElementById('name').value)
-    api.findOrCreateUser({name: document.getElementById('name').value}).then(console.log)
+    api.findOrCreateUser({name: document.getElementById('name').value}).then(addUser)
 })
 
-function addUser(username){
+function addUser(user){
+    form.remove()
+    let sentence = document.createElement('p')
+    sentence.innerText = `Welcome, Commander ${user.name}.`
+    formContainer.append(sentence)
 }
 
 

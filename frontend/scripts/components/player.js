@@ -1,6 +1,7 @@
 class Player {
-    constructor(name) {
+    constructor(id, name) {
         this.name = name
+        this.id = id
         this.position = [0,0] //starts in top left corner
         this.fuel = 100
         this.health = 100
