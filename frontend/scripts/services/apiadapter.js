@@ -21,11 +21,6 @@ class APIAdapter {
             headers: this.headers,
             body: JSON.stringify(body)
         }).then(this.parseJSON)
-        // if (!!result.user_id) {
-        //     return this.getUser(result.user_id)
-        // } else {
-        //     return result
-        // }
     }
 }
 

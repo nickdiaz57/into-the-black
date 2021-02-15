@@ -15,10 +15,8 @@ const seed = {
 }
 
 class Map {
-    constructor(user=undefined) {
-        // this.user = user
+    constructor() {
         this.tiles = this.generateTiles()
-        // this.addPlayer()
         this.addEvents()
     }
 
@@ -35,18 +33,18 @@ class Map {
         return tileObj
     }
     
-    displayMap() {
+    displayMap(user) {
         this.html = document.createElement('div')
         this.html.id = 'map'
         main.append(this.html)
         for (const x in this.tiles) {
             this.tiles[x].forEach((t) => this.html.append(t.html))
         }
+        this.addPlayer(user)
     }
     
-    addPlayer() {
-        //find way to add players name with form before displaying map
-        this.player = new Player
+    addPlayer(user) {
+        this.player = new Player(user)
         this.tiles[0][0].html.innerText = this.player.icon
         return this.player
     }
