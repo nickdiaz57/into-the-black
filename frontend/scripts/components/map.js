@@ -18,7 +18,7 @@ class Map {
     constructor(user=undefined) {
         // this.user = user
         this.tiles = this.generateTiles()
-        this.addPlayer()
+        // this.addPlayer()
         this.addEvents()
     }
 

@@ -1,5 +1,6 @@
 const main = document.querySelector('main')
 const api = new APIAdapter
+const map = new Map
 
 const formContainer = document.getElementById('form-container')
 const form = document.getElementById('name-form')
@@ -13,15 +14,16 @@ form.addEventListener("submit", function(event) {
 function addUser(user){
     form.remove()
     let sentence = document.createElement('p')
-    sentence.innerText = `Welcome, Commander ${user.name}.`
+    sentence.innerText = `Welcome, Commander ${user.name}.\nWins: ${getWins(user)}\nLosses: ${getLosses(user)}`
     formContainer.append(sentence)
+    // map.displayMap()
+    // const player = map.addPlayer()
 }
 
+const getWins = (user) => {return user.games.filter(x => x.completed == true && x.won == true).length}
 
+const getLosses = (user) => {return user.games.filter(x => x.completed == true && x.won == false).length}
 
-// const map = new Map
-// map.displayMap()
-// const player = map.addPlayer()
 
 // document.addEventListener("keydown", function(e) {
 //     if (e.key === "ArrowLeft") {
