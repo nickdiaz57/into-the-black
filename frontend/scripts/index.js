@@ -5,6 +5,8 @@ const map = new Map
 const formContainer = document.getElementById('form-container')
 const form = document.getElementById('name-form')
 
+const textContainer = document.getElementById('text-container')
+
 form.addEventListener("submit", function(event) {
     event.preventDefault();
     api.findOrCreateUser({name: document.getElementById('name').value}).then(addUser)
