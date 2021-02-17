@@ -109,13 +109,21 @@ class Map {
     }
     //handle events when player lands on tile
     triggerEvent(event) {
-        let message = document.createElement('p')
-        textContainer.append(message)
-        this.readScene(event.scenes['start'], message)
+        this.message = document.createElement('p')
+        textContainer.append(this.message)
+        this.findScene(event, 'start')
     }
 
-    readScene(scene, html) {
-        html.innerText = scene.text
+    findScene(event, sceneName) {
+        if (sceneName == 'end') {
+            this.endEvent()
+        } else {
+            this.readScene(event.scenes[sceneName])
+        }
+    }
+
+    readScene(scene) {
+        this.message.innerText = scene.text
         for(let b in scene.buttons) {
             this.createButton(scene.buttons[b], b)
         }
@@ -125,9 +133,15 @@ class Map {
         let btn = document.createElement('button')
         btn.innerText = data.value
         btn.id = id
+        btn.onclick = function() {console.log(btn)}//<--
         textContainer.append(btn)
+        return btn
     }
     
+    endEvent() {
+
+    }
+
     findPlayer = () => this.tiles[this.player.position[1]][this.player.position[0]]
     
     isValid = (num) => (num >= 0 && num <= 29)

@@ -6,6 +6,7 @@ const formContainer = document.getElementById('form-container')
 const form = document.getElementById('name-form')
 
 const textContainer = document.getElementById('text-container')
+// const message = document.getElementById('message')
 
 form.addEventListener("submit", function(event) {
     event.preventDefault();
