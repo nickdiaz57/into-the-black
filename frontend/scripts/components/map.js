@@ -122,16 +122,14 @@ class Map {
         btn.innerText = data.value
         btn.id = id
         btn.next = data.next
-        btn.onclick = function() {map.nextScene(btn.next, scenes)}//<--
+        btn.onclick = function() {map.nextScene(btn.next, scenes)}
         buttonContainer.append(btn)
         return btn
     }
 
-    nextScene(nextSceneName, scenes) {
+    nextScene(nextSceneName, scenes) {//REFACTOR
         if (nextSceneName === 'end') {
-            //end event
-            textMessage.innerText = ""
-            buttonContainer.innerHTML = ""
+            this.endEvent()
         } else if (typeof nextSceneName === 'string') {
             let target = scenes[nextSceneName]
             textMessage.innerText = target.text
@@ -139,13 +137,17 @@ class Map {
             for (let b in target.buttons) {
                 this.createButton(target.buttons[b], b, scenes)
             }
-        } else if (typeof nextSceneName === 'object') {//fix handling when end is in the object
+        } else if (typeof nextSceneName === 'object') {
             //handle random chance
-            let target = scenes[this.chance(nextSceneName)]
-            textMessage.innerText = target.text
-            buttonContainer.innerHTML = ""
-            for (let b in target.buttons) {
-                this.createButton(target.buttons[b], b, scenes)
+            if (!!Object.values(nextSceneName).find(v => v == 'end')) {
+                this.endEvent()
+            } else {
+                let target = scenes[this.chance(nextSceneName)]
+                textMessage.innerText = target.text
+                buttonContainer.innerHTML = ""
+                for (let b in target.buttons) {
+                    this.createButton(target.buttons[b], b, scenes)
+                }
             }
         }
     }
@@ -156,7 +158,10 @@ class Map {
         return data[target]
     }
 
-    endEvent() {}
+    endEvent() {//add flag to event so it doesnt trigger again if player revisits tile
+        textMessage.innerText = ""
+        buttonContainer.innerHTML = ""
+    }
 
     findPlayer = () => this.tiles[this.player.position[1]][this.player.position[0]]
     
