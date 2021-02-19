@@ -5,7 +5,8 @@ const map = new Map
 const formContainer = document.getElementById('form-container')
 const form = document.getElementById('name-form')
 
-const textContainer = document.getElementById('text-container')
+const textMessage = document.getElementById('message')
+const buttonContainer = document.getElementById('button-container')
 // const message = document.getElementById('message')
 
 form.addEventListener("submit", function(event) {

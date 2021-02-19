@@ -49,13 +49,14 @@ class Map {
         return this.player
     }
     //player movement
-    movePlayer(dir) {//change color of encounters to differ from player and unvisited encounters when player leaves
+    movePlayer(dir) {//add visited class to tiles when player steps off, changes color to gray with css
         let prevTile = this.findPlayer()
         prevTile.occupied = false
         prevTile.populateTile()
-        textContainer.innerHTML = ""
+        textMessage.innerText = ""
+        buttonContainer.innerHTML = ""
         
-        if (dir === "left") {
+        if (dir === "left") {//add inEvent check to player, prevent them from moving if event has been triggered and not completed
             this.player.moveLeft(this.player.moveRange);
         } else if (dir === "right") {
             this.player.moveRight(this.player.moveRange);
@@ -70,7 +71,7 @@ class Map {
         newTile.occupied = true
         newTile.visited = true
         newTile.html.innerText = this.player.icon
-        if (newTile.event) {this.triggerEvent(newTile.event)}
+        if (newTile.event) {this.triggerEvent(newTile.event)} 
     }
     
     seeTiles() {
@@ -107,40 +108,55 @@ class Map {
         } while (!!tile.event)
         return tile
     }
-    //handle events when player lands on tile
+    // handle events when player lands on tile
     triggerEvent(event) {
-        this.message = document.createElement('p')
-        textContainer.append(this.message)
-        this.findScene(event, 'start')
-    }
-
-    findScene(event, sceneName) {
-        if (sceneName == 'end') {
-            this.endEvent()
-        } else {
-            this.readScene(event.scenes[sceneName])
+        let start = event.scenes['start']
+        textMessage.innerText = start.text
+        for (let b in start.buttons) {
+            this.createButton(start.buttons[b], b, event.scenes)
         }
     }
 
-    readScene(scene) {
-        this.message.innerText = scene.text
-        for(let b in scene.buttons) {
-            this.createButton(scene.buttons[b], b)
-        }
-    }
-
-    createButton(data, id) {
+    createButton(data, id, scenes) {
         let btn = document.createElement('button')
         btn.innerText = data.value
         btn.id = id
-        btn.onclick = function() {console.log(btn)}//<--
-        textContainer.append(btn)
+        btn.next = data.next
+        btn.onclick = function() {map.nextScene(btn.next, scenes)}//<--
+        buttonContainer.append(btn)
         return btn
     }
-    
-    endEvent() {
 
+    nextScene(nextSceneName, scenes) {
+        if (nextSceneName === 'end') {
+            //end event
+            textMessage.innerText = ""
+            buttonContainer.innerHTML = ""
+        } else if (typeof nextSceneName === 'string') {
+            let target = scenes[nextSceneName]
+            textMessage.innerText = target.text
+            buttonContainer.innerHTML = ""
+            for (let b in target.buttons) {
+                this.createButton(target.buttons[b], b, scenes)
+            }
+        } else if (typeof nextSceneName === 'object') {//fix handling when end is in the object
+            //handle random chance
+            let target = scenes[this.chance(nextSceneName)]
+            textMessage.innerText = target.text
+            buttonContainer.innerHTML = ""
+            for (let b in target.buttons) {
+                this.createButton(target.buttons[b], b, scenes)
+            }
+        }
     }
+
+    chance(data) {
+        let ref = Math.floor(Math.random() * 10) + 1
+        let target = Object.keys(data).find(k => ref <= k)
+        return data[target]
+    }
+
+    endEvent() {}
 
     findPlayer = () => this.tiles[this.player.position[1]][this.player.position[0]]
     
