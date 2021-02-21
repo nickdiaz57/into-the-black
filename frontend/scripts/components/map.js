@@ -10,8 +10,8 @@ const seed = {
     TRADER: 4,
     PLANET: 2,
     DEPOT: 5,
-    SHIPYARD: 1,
-    STAR: 1
+    // STAR: 1,
+    SHIPYARD: 1
 }
 
 class Map {

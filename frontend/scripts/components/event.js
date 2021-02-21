@@ -13,13 +13,13 @@ var Event = {
             'fuel': {
                 text: 'The transaction clears.\nA small droid approaches your ship with additional fuel.',
                 buttons: {
-                    'finish': {value: 'Leave station.', next: 'end'}
+                    'finish': {value: 'Leave station.', next: 'end'}//lose scrap, gain fuel
                 }
             },
             'repair': {
                 text: 'The transaction clears.\nA group of repair drones encircles your ship and patches the hull.',
                 buttons: {
-                    'finish': {value: 'Leave station.', next: 'end'}
+                    'finish': {value: 'Leave station.', next: 'end'}//lose scrap, gain health
                 }
             }
         }
@@ -44,13 +44,13 @@ var Event = {
             'help success': {
                 text: "The last of the survivors clambers aboard, and you pull away from the station safely.\nYou drop off the survivors on a nearby station. One offers to join you.",
                 buttons: {
-                    'finish': {value: 'Welcome aboard.', next: 'end'}
+                    'finish': {value: 'Welcome aboard.', next: 'end'}//gain crew
                 }
             },
             'help fail': {
                 text: "The station explodes just before you can dock. Your ship is violently thrown away from the blast.\nNo one could have survived that.",
                 buttons: {
-                    'finish': {value: 'Leave.', next: 'end'}
+                    'finish': {value: 'Leave.', next: 'end'}//lose health
                 }
             }
         }
@@ -77,13 +77,13 @@ var Event = {
             'help success': {
                 text: "Your crew holds off the spiders long enough to evacuate the remaining civilians.\nYou drop off the survivors on a nearby station. One offers to join you.",
                 buttons: {
-                    'finish': {value: 'Welcome aboard.', next: 'end'}
+                    'finish': {value: 'Welcome aboard.', next: 'end'}//gain crew
                 }
             },
             'help fail': {
                 text: "The spiders are far more aggressive than you could have expected. The fight is short and bloody.\nYou barely make it back to the ship alive. One of your crew doesn't return.",
                 buttons: {
-                    'finish': {value: 'Leave.', next: 'end'}
+                    'finish': {value: 'Leave.', next: 'end'}//lose crew
                 }
             }
         }
@@ -97,7 +97,7 @@ var Event = {
             'start': {
                 text: "A heavily damaged warship drifts through the darkness, long abandoned.\nIt looks like parts of the ship can be salvaged for scrap.",
                 buttons: {
-                    'finish': {value: 'Take what you can.', next: 'end'}
+                    'finish': {value: 'Take what you can.', next: 'end'}//gain scrap
                 }
             }
         }
@@ -122,7 +122,7 @@ var Event = {
             },
             'thanks': {
                 text: "They seem grateful. They send over some scrap as thanks.",
-                buttons: {
+                buttons: {//gain scrap, lose fuel
                     'finish': {value: 'Leave.', next: 'end'}
                 }
             },
@@ -134,21 +134,21 @@ var Event = {
                 }
             },
             'ambush fail': {
-                text: "As you turn to leave, the cruiser deploys weapons. They meant to lure you in.\nYou're able to escape with only minor damage.",
+                text: "As you turn to leave, the cruiser deploys weapons. They were trying to lure you in.\nYou're able to escape with only minor damage.",
                 buttons: {
-                    'finish': {value: "Leave.", next: 'end'}
+                    'finish': {value: "Leave.", next: 'end'}//take damage, small
                 }
             },
             'surrender': {
                 text: "You surrender a loaded cargo capsule. The cruiser scoops it up and speeds off.\nYour hold is empty, but your ship is unharmed.",
                 buttons: {
-                    'finish': {value: "Leave.", next: 'end'}
+                    'finish': {value: "Leave.", next: 'end'}//lose some fuel, all scrap
                 }
             },
             'damage': {
                 text: "You close your hold and attempt to escape. The cruiser opens fire.\nYou were in a vulnerable position. Your ship takes heavy damage before you can get away.",
                 buttons: {
-                    'finish': {value: "Leave.", next: 'end'}
+                    'finish': {value: "Leave.", next: 'end'}//take damage, large
                 }
             }
         }
@@ -157,61 +157,209 @@ var Event = {
 
     BLACKHOLE: {
         icon: "B",
-        text: "Strange readings fill your terminal as light from faraway stars bends unnaturally around a distant point.\nYour ship computer warns you that you've found a black hole.",
-        buttons: {}
-        //can teleport to random place on map, small chance to instantly destroy ship
+        scenes: {
+            'start': {
+                text: "Strange readings fill your terminal as light from faraway stars bends unnaturally around a distant point.\nYour ship computer warns you that you've found a black hole.",
+                buttons: {
+                    'approach': {value: "Approach the black hole.", next: 'approach1'},
+                    'finish': {value: "Stay away.", next: 'end'}
+                }
+            },
+            'approach1': {
+                text: "You've heard rumors that entering a black hole can transport ships to random destinations anywhere in the galaxy.\nOr, it could just kill you outright.",
+                buttons: {
+                    'approach': {value: "Get closer.", next: 'approach2'},
+                    'finish': {value: "Say no more. Let's get out of here.", next: 'end'}
+                }
+            },
+            'approach2': {
+                text: "'WARNING. EXTREME DANGER.' Critical alert messages flash on every screen in the cockpit as the black hole nears.\nThere's a chance you won't survive this.",
+                buttons: {
+                    'approach': {value: "You're just a computer, what do you know?", next: 'approach3'},
+                    'finish': {value: "Follow the computer's advice.", next: 'end'}
+                }
+            },
+            'approach3': {
+                text: "Your crew murmurs nervously behind you.\nAre we really doing this?",
+                buttons: {
+                    'approach': {value: "We're really doing this.", next: 'approach4'},
+                    'finish': {value: "Take the hint.", next: 'end'}
+                }
+            },
+            'approach4': {
+                text: "Seriously?",
+                buttons: {
+                    'approach': {value: "Seriously.", next: {4: 'die', 10: 'survive'}},
+                    'finish': {value: "On second thought...", next: 'end'}
+                }
+            },
+            'die': {
+                text: "As it turns out, this particular black hole didn't have an endpoint. It's just a black hole.\nYour ship, your crew, and you are torn apart at a molecular level. It seems your journey is over.",
+                buttons: {
+                    'finish': {value: "Dead.", next: 'end'}//take damage guaranteed to kill
+                }
+            },
+            'survive': {
+                text: "The ship shudders violently as reality bends around you. It's impossible to process what you're seeing.\nAfter what feels like hours, your map shows you've been moved somewhere else entirely. Miraculously, you're alive!",
+                buttons: {
+                    'finish': {value: "The journey continues.", next: 'end'}//move to random point on map
+                }
+            }
+        }
+        //can teleport to random place on map, chance to instantly destroy ship
     },
 
     PIRATE: {
         icon: "T",
-        text: "A large trade ship is being harassed by a heavily armed pirate vessel.\nThey haven't noticed your ship yet.",
-        buttons: {}
+        scenes: {
+            'start': {
+                text: "A large trade ship is being harassed by a heavily armed pirate vessel.\nThey haven't noticed your ship yet.",
+                buttons: {
+                    'intervene': {value: "Help the trader. Engage the pirate vessel.", next: {5: 'help fail', 10: 'help success'}},
+                    'ignore': {value: "Stay out of it.", next: 'end'}
+                }
+            },
+            'help fail': {
+                text: "Your first shots miss, and the pirate vessel turns its sights to you. The trade vessel flees in the confusion.\nThe pirate's weapons are too powerful. You take significant damage before you can get away.",
+                buttons: {
+                    'finish': {value: "Leave.", next: 'end'}//take damage
+                }
+            },
+            'help success': {
+                text: "Your first shots hit and take the pirate by surprise. They stow their weapons and flee.\nThe trader is extremely grateful. They send over supplies as thanks.",
+                buttons: {
+                    'finish': {value: "Leave.", next: 'end'}//gain scrap, fuel, tech
+                }
+            }
+        }
         //attacking trader, can either ignore or intervene
         //intervene and lose causes significant damage, intervene and win to gain scrap and tech from trader
     },
 
     TRADER: {
         icon: "T",
-        text: "A large trade ship lumbers through the system.\nThey hail you as you pass, offering their wares.",
-        buttons: {}
-        //offers tech in exchange for fuel and scrap, fuel for scrap
+        scenes: {
+            'start': {
+                text: "A large trade ship lumbers through the system.\nThey hail you as you pass, offering their wares.",
+                buttons: {
+                    'buy fuel': {value: "Buy fuel.", next: 'buy fuel'},
+                    'buy engine': {value: "Buy engine upgrade.", next: 'buy engine'},
+                    'buy sensors': {value: "Buy sensor upgrade.", next: 'buy sensors'},
+                    'ignore': {value: "Leave.", next: 'end'}
+                }
+            },
+            'buy fuel': {
+                text: "The transaction clears.\nThe trade ship sends over a capsule of fuel.",
+                buttons: {
+                    'finish': {value: "Leave.", next: 'end'}//lose scrap, gain fuel
+                }
+            },
+            'buy engine': {
+                text: "A small shuttle leaves the trade ship and docks at your airlock. The engineer is polite and works quickly.\nYour engine will consume less fuel to travel.",
+                buttons: {
+                    'finish': {value: "Leave.", next: 'end'}//lose scrap, gain engine upgrade
+                }
+            },
+            'buy sensors': {
+                text: "A small shuttle leaves the trade ship and docks at your airlock. The engineer is polite and works quickly.\nThe upgraded sensors allow you to see farther.",
+                buttons: {
+                    'finish': {value: "Leave.", next: 'end'}//lose scrap, gain sensor upgrade
+                }
+            }
+        }
+        //offers tech in exchange for scrap, fuel for scrap
     },
 
     PLANET: {
         icon: "P",
-        text: ["Your terminal crackles to life with a garbled distress signal coming from a nondescript desert world.\nIt seems a ship has crashed on the surface.",
-        "You send a team down to investigate, and they find a single haggard survivor.\nHe has been there a long time. His mental state is uncertain."],
-        buttons: {}
+        scenes: {
+            'start': {
+                text: "Your terminal crackles to life with a garbled distress signal coming from a nondescript desert world.\nIt seems a ship has crashed on the surface.",
+                buttons: {
+                    'investigate': {value: "Investigate the signal.", next: 'investigate'},
+                    'ignore': {value: "Ignore the signal.", next: 'end'}
+                }
+            },
+            'investigate': {
+                text: "You send a team down to investigate, and they find a single haggard survivor.\nHe has been there a long time. His mental state is uncertain.",
+                buttons: {
+                    'rescue': {value: "Bring him back to the ship.", next: {4: 'sabotage', 10: 'new crew'}},
+                    'abandon': {value: "He looks... twitchy. Leave him there.", next: 'end'}
+                }
+            },
+            'sabotage': {
+                text: "Setting foot on a space vessel triggers something in him, and he snaps.\nHe damages several modules in his frenzy before your crew can subdue him.",
+                buttons: {
+                    'finish': {value: "Leave.", next: 'end'}//take damage
+                }
+            },
+            'new crew': {
+                text: "He is relieved to be off the planet. Returning to space seems to calm him down.\nHe asks to join your crew.",
+                buttons: {
+                    'finish': {value: "Welcome aboard.", next: 'end'}//gain crew
+                }
+            }
+        }
         //find crash survivor, may either sabotage ship and cause damage or become new crewmate
     },
 
     DEPOT: {
         icon: "F",
-        text: "A small automated fuel depot appears on your scanners.\nIt clears you for a refueling procedure as you approach.",
-        buttons: {}
+        scenes: {
+            'start': {
+                text: "A small automated fuel depot appears on your scanners.\nIt clears you for a refueling procedure as you approach.",
+                buttons: {
+                    'finish': {value: 'Refuel.', next: 'end'}//gain fuel
+                }
+            }
+        }
         //refuel
     },
 
     SHIPYARD: {
         icon: "Y",
-        text: ["A busy shipyard overtakes the near side of a small moon orbiting an earth-like planet.\nSmall frigates weave in between colossal fleet carriers and dreadnoughts in dry dock.",
-        "Countless advertisements roll across your terminal, but one catches your eye.\nA vendor offers to upgrade your ship's armor plating."],
-        buttons: {}
+        scenes: {
+            'start': {
+                text: "A busy shipyard occupies the near side of a small moon orbiting an earth-like planet.\nSmall frigates weave in between colossal fleet carriers and dreadnoughts in dry dock.",
+                buttons: {
+                    'proceed': {value: 'Approach the shipyard.', next: 'decide'}
+                }
+            },
+            'decide': {
+                text: "Countless advertisements roll across your terminal, but one catches your eye.\nA vendor offers to upgrade your ship's armor plating.",
+                buttons: {
+                    'purchase': {value: 'Accept the offer.', next: 'buy armor'},
+                    'ignore': {value: 'Ignore the advertisement.', next: 'end'}
+                }
+            },
+            'buy armor': {
+                text: "A cluster of drones surround the ship. The sounds of welding and metalwork reverberate through the hull for a few hours.\nYour ship's hull is strengthened against incoming damage.",
+                buttons: {
+                    'finish': {value: 'Leave.', next: 'end'}//lose scrap, gain armor
+                }
+            }
+        }
         //buy armor increase
     },
 
-    STAR: {
-        icon: "N",
-        text: ["Your cabin is bathed in the eerie bluish-white light of a neutron star.\nMassive jets carry superheated plasma thousands of miles out from the poles of the star.",
-        "Alerts flash on your console. Passing through the jets can temporarily overcharge your drive core.\nHowever, your ship may not be able to handle the strain..."],
-        buttons: {}
-        //neutron star, using it will cause damage but greatly increase next jump
-    },
+    // STAR: {
+    //     icon: "N",
+    //     text: ["Your cabin is bathed in the eerie bluish-white light of a neutron star.\nMassive jets carry superheated plasma thousands of miles out from the poles of the star.",
+    //     "Alerts flash on your console. Passing through the jets can temporarily overcharge your drive core.\nHowever, your ship may not be able to handle the strain..."],
+    //     buttons: {}
+    //     //neutron star, using it will cause damage but greatly increase next jump
+    // },
 
     BEACON: {
         icon: "G",
-        text: "Telemetry data for the next system loads to your terminal as the beacon comes into range.\nOne step closer to home...",
-        buttons: {}
+        scenes: {
+            'start': {
+                text: "Telemetry data for the next system loads to your terminal as the beacon comes into range.\nOne step closer to home...",
+                buttons: {
+                    'finish': {value: 'Continue the journey.', next: 'end'}//victory screen
+                }
+            }
+        }
     }
 }
 
