@@ -6,7 +6,7 @@ class Player {
         this.fuel = 100
         this.health = 100
         this.scrap = 20
-        this.consumption = 5
+        this.consumption = 1
         this.inventory = []
         this.crew = []
         this.icon = "@"
@@ -43,6 +43,28 @@ class Player {
             let currentPosition = this.position
             let newPosition = [currentPosition[0], currentPosition[1] + dist]
             this.position = newPosition
+        }
+    }
+
+    spendResource(resource, amount) {
+        this[resource] = (this[resource] - amount)
+        return this[resource]
+    }
+
+    gainResource(resource, amount) {
+        if (resource == 'health') {
+            let currentHealth = this.health
+            let newHealth = (currentHealth + amount)
+            if (newHealth > 100) {
+                this.health = 100
+                return this.health
+            } else {
+                this.health = newHealth
+                return this.health
+            }
+        } else {
+            this[resource] = (this[resource] + amount)
+            return this[resource]
         }
     }
 

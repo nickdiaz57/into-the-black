@@ -32,10 +32,7 @@ class UsersController < ApplicationController
             render json: {error: "There was an error updating that user.", status: 400}
         end
     end
-
-    # def destroy
-    # end
-
+    
     private
 
     def user_params
@@ -43,11 +40,3 @@ class UsersController < ApplicationController
     end
 
 end
-
-# fetch('http://localhost:3000/users', {
-#     method: "POST",
-#     headers: {"Accepts": "application/json", "Content-Type": "application/json"},
-#     body: JSON.stringify({name: "Kirk"})
-# })
-# .then(res => res.json())
-# .then(console.log)

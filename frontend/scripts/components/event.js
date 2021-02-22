@@ -5,21 +5,21 @@ var Event = {
             'start': {
                 text: "You find yourself within range of a bustling Federation outpost.\nWide-band communications broadcast the outpost's fueling and repair services.",
                 buttons: {
-                    'buy fuel': {value: 'Buy fuel.', next: 'fuel'},
-                    'buy repairs': {value: 'Buy repairs.', next: 'repair'},
+                    'buy fuel': {value: 'Buy fuel. (10 scrap)', next: 'fuel', cost: {scrap: 10}},
+                    'buy repairs': {value: 'Buy repairs. (10 scrap)', next: 'repair', cost: {scrap: 30}},
                     'finish': {value: 'Leave station.', next: 'end'}
                 }
             },
             'fuel': {
                 text: 'The transaction clears.\nA small droid approaches your ship with additional fuel.',
                 buttons: {
-                    'finish': {value: 'Leave station.', next: 'end'}//lose scrap, gain fuel
+                    'finish': {value: 'Leave station.', next: 'end', result: {fuel: 50}}//lose scrap, gain fuel
                 }
             },
             'repair': {
                 text: 'The transaction clears.\nA group of repair drones encircles your ship and patches the hull.',
                 buttons: {
-                    'finish': {value: 'Leave station.', next: 'end'}//lose scrap, gain health
+                    'finish': {value: 'Leave station.', next: 'end', result: {health: 100}}//lose scrap, gain health
                 }
             }
         }

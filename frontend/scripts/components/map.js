@@ -89,7 +89,7 @@ class Map {
     }
 
     showInventory(){
-        inventoryContainer.innerText = `Fuel: ${this.player.fuel}   Health: ${this.player.health}   Scrap: ${this.player.scrap}\nUpgrades: ${this.player.inventory}   Crew: ${this.player.crew}`
+        inventoryContainer.innerText = `Fuel: ${this.player.fuel}   Health: ${this.player.health}   Scrap: ${this.player.scrap}\nUpgrades: ${this.player.inventory}\nCrew: ${this.player.crew}`
     }
     //spread events across map on game start
     addEvents() {
@@ -131,9 +131,37 @@ class Map {
         btn.innerText = data.value
         btn.id = id
         btn.next = data.next
-        btn.onclick = function() {map.nextScene(btn.next, scenes)}
+
+        if (data.cost) {
+            let resource = Object.keys(data.cost)[0]
+            if (this.canAfford(resource, data.cost[resource])) {
+                btn.onclick = function() {
+                    //subtract cost from player
+                    map.player.spendResource(resource, data.cost[resource])
+                    map.nextScene(btn.next, scenes)
+                }
+            } else {
+                btn.onclick = function() {
+                    let p = document.createElement('p')
+                    p.innerText = "Insufficient resources."
+                    buttonContainer.append(p)
+                }
+            }
+        } else {
+            btn.onclick = function() {map.nextScene(btn.next, scenes)}
+        }
+
+        if (data.result) {
+            let resource = Object.keys(data.result)[0]
+            map.player.gainResource(resource, data.result[resource])
+        }
+
         buttonContainer.append(btn)
         return btn
+    }
+
+    canAfford(resource, cost) {
+        return ((this.player[resource] - cost) >= 0)
     }
 
     nextScene(nextSceneName, scenes) {//REFACTOR
