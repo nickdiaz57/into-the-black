@@ -356,7 +356,7 @@ var Event = {
             'start': {
                 text: "Telemetry data for the next system loads to your terminal as the beacon comes into range.\nOne step closer to home...",
                 buttons: {
-                    'finish': {value: 'Continue the journey.', next: 'end'}//victory screen
+                    'finish': {value: 'Victory!', next: 'end'}//victory screen
                 }
             }
         }

@@ -11,9 +11,8 @@ class GamesController < ApplicationController
 
     def create
         user = User.find_or_create_by(user_params)
-        game = Game.create(game_params)
+        game = user.games.build(game_params)
         if game.save && user.valid?
-            user.games << game
             render json: game
         else
             render json: {error: "There was an error submitting the record for that game.", status: 400}

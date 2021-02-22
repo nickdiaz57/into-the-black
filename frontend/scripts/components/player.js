@@ -6,6 +6,7 @@ class Player {
         this.fuel = 100
         this.health = 100
         this.scrap = 20
+        this.consumption = 5
         this.inventory = []
         this.crew = []
         this.icon = "@"
@@ -43,5 +44,13 @@ class Player {
             let newPosition = [currentPosition[0], currentPosition[1] + dist]
             this.position = newPosition
         }
+    }
+
+    checkLoss(){
+        return (this.health <=0 || this.fuel <= 0)
+    }
+
+    burnFuel(){
+        this.fuel = (this.fuel - this.consumption)
     }
 }

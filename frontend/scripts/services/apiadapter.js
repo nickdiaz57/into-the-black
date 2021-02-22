@@ -12,11 +12,23 @@ class APIAdapter {
         return this.url + `/users`
     }
 
+    get gamesURL() {
+        return this.url + '/games'
+    }
+
     getUsers = () => fetch(this.usersURL).then(this.parseJSON)
     getUser = (userID) => fetch(this.usersURL + `/${userID}`).then(this.parseJSON)
 
     findOrCreateUser(body) {
         return fetch(this.usersURL, {
+            method: "POST",
+            headers: this.headers,
+            body: JSON.stringify(body)
+        }).then(this.parseJSON)
+    }
+
+    createUserGame(body) {
+        return fetch(this.gamesURL, {
             method: "POST",
             headers: this.headers,
             body: JSON.stringify(body)

@@ -16,6 +16,8 @@ const seed = {
 
 class Map {
     constructor() {
+        this.completed = false
+        this.won = false
         this.tiles = this.generateTiles()
         this.addEvents()
     }
@@ -66,12 +68,15 @@ class Map {
             this.player.moveDown(this.player.moveRange);
         }
         
+        this.player.burnFuel()
         this.seeTiles()
+        this.showInventory()
         let newTile = this.findPlayer()
         newTile.occupied = true
         newTile.visited = true
         newTile.html.innerText = this.player.icon
-        if (newTile.event) {this.triggerEvent(newTile.event)} 
+        if (newTile.event) {this.triggerEvent(newTile.event)}
+        this.checkGameOver()
     }
     
     seeTiles() {
@@ -81,6 +86,10 @@ class Map {
                 if(this.isValid(y) && this.isValid(x)) {map.tiles[y][x].revealTile()}
             }
         }
+    }
+
+    showInventory(){
+        inventoryContainer.innerText = `Fuel: ${this.player.fuel}   Health: ${this.player.health}   Scrap: ${this.player.scrap}\nUpgrades: ${this.player.inventory}   Crew: ${this.player.crew}`
     }
     //spread events across map on game start
     addEvents() {
@@ -161,7 +170,25 @@ class Map {
     endEvent() {//add flag to event so it doesnt trigger again if player revisits tile
         textMessage.innerText = ""
         buttonContainer.innerHTML = ""
+        this.checkGameOver()//fix submitting game twice when clicking end button at beacon
     }
+
+    checkGameOver() {
+        if(this.player.checkLoss()) {
+            this.completed = true
+            this.won = false
+            this.endGame()
+        } else if (this.player.position[0] == 29 && this.player.position[1] == 29) {
+            this.completed = true
+            this.won = true
+            this.endGame()
+        }
+    }
+
+    endGame() {//fully end game, stop all movement
+        this.removeMap()
+        api.createUserGame({user:{name: this.player.name}, game:{completed: this.completed, won: this.won}}).then(console.log)
+    }//do something with the end game
 
     findPlayer = () => this.tiles[this.player.position[1]][this.player.position[0]]
     

@@ -7,7 +7,7 @@ const form = document.getElementById('name-form')
 
 const textMessage = document.getElementById('message')
 const buttonContainer = document.getElementById('button-container')
-// const message = document.getElementById('message')
+const inventoryContainer = document.getElementById('inventory-container')
 
 form.addEventListener("submit", function(event) {
     event.preventDefault();
