@@ -1,12 +1,5 @@
 # into-the-black
 
-User story - User can start a game with the goal of moving a spaceship across a map, User can retrieve record from backend of their
-wins and losses
+Into the Black is an interactive text-based adventure game in which a player controls a spaceship making its way through an unforgiving galaxy.
 
-MVP - Player represented by unique ASCII character on a grid, Player moves across board and reveals tiles as they move, player finds
-encounters and events as they travel which affect their fuel and health levels or grant powerups, PLayer wins game if they reach
-beacon on other end of map, Player loses game if they run out of fuel or health
-
-Stretch goals - Players will encounter random events as they move separate from encounters marked on map, Players progress through 3 unique
-maps to win game, Players can gain powerups that affect their movement/sight range/other stats, inventory screen window that shows users
-all acquired powerups along with health and fuel levels
+Players enter their name to create a profile, which will keep a record of their previous wins and losses.  Players move their controlled character along a randomized grid of ASCII characters, encountering scripted events along the way.  Players will need to maintain their fuel and health levels over the course of the journey; running out of either resource will cause the game to end in a loss.  A player's goal is to reach the beacon, marked with the character "G", at the far end of the map.  Successfully reaching the beacon will end the game in a victory and automatically submit a record of the game to the database, which will attribute the player's victory to their profile.

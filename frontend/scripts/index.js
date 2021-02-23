@@ -26,7 +26,7 @@ const getWins = (user) => {return user.games.filter(x => x.completed == true && 
 
 const getLosses = (user) => {return user.games.filter(x => x.completed == true && x.won == false).length}
 
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", function(e) {  //causes movement after map html is removed, fix this
     if (e.key === "ArrowLeft") {
       map.movePlayer("left");
     } else if (e.key === "ArrowRight") {

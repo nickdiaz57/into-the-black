@@ -1,17 +1,17 @@
 const equals = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
-const seed = {
-    OUTPOST: 3,
-    FIRE: 2,
-    SPIDERS: 1,
-    DERELICT: 3,
-    DISTRESS: 3,
-    BLACKHOLE: 1,
-    PIRATE: 2,
-    TRADER: 4,
-    PLANET: 2,
-    DEPOT: 5,
+const seed = {//add back events once you actually learn how to code
+    OUTPOST: 6, //3,
+    // FIRE: 2,
+    // SPIDERS: 1,
+    DERELICT: 5, //3,
+    DISTRESS: 4, //3,
+    // BLACKHOLE: 1,
+    PIRATE: 6, //2,
+    // TRADER: 4,
+    // PLANET: 2,
+    DEPOT: 7 //5,
     // STAR: 1,
-    SHIPYARD: 1
+    // SHIPYARD: 1
 }
 
 class Map {
@@ -42,8 +42,23 @@ class Map {
         for (const x in this.tiles) {
             this.tiles[x].forEach((t) => this.html.append(t.html))
         }
+        // this.addMovement()
         this.addPlayer(user)
     }
+
+    // addMovement() {   <-- doesnt work
+    //     this.html.addEventListener("keydown", function(e) {
+    //         if (e.key === "ArrowLeft") {
+    //           map.movePlayer("left");
+    //         } else if (e.key === "ArrowRight") {
+    //             map.movePlayer("right");
+    //         } else if (e.key === "ArrowUp") {
+    //             map.movePlayer("up");
+    //         } else if (e.key === "ArrowDown") {
+    //             map.movePlayer("down");
+    //         }
+    //       })
+    // }
     
     addPlayer(user) {
         this.player = new Player(user)
@@ -77,7 +92,7 @@ class Map {
         newTile.html.innerText = this.player.icon
         if (newTile.event) {this.triggerEvent(newTile.event)}
         this.checkGameOver()
-    }
+    }//why do you write garbage like this, refactor it
     
     seeTiles() {
         let player = this.player
@@ -126,7 +141,7 @@ class Map {
         }
     }
 
-    createButton(data, id, scenes) {
+    createButton(data, id, scenes) {//refactor this complete disaster please, my eyes hurt looking at it
         let btn = document.createElement('button')
         btn.innerText = data.value
         btn.id = id
@@ -152,8 +167,12 @@ class Map {
         }
 
         if (data.result) {
-            let resource = Object.keys(data.result)[0]
-            map.player.gainResource(resource, data.result[resource])
+            btn.onclick = function() {
+                for (let r in data.result) {
+                    map.player.gainResource(r, data.result[r])
+                }
+                map.nextScene(btn.next, scenes)
+            }
         }
 
         buttonContainer.append(btn)
@@ -164,7 +183,7 @@ class Map {
         return ((this.player[resource] - cost) >= 0)
     }
 
-    nextScene(nextSceneName, scenes) {//REFACTOR
+    nextScene(nextSceneName, scenes) {//REFACTOR FOR THE LOVE OF GOD
         if (nextSceneName === 'end') {
             this.endEvent()
         } else if (typeof nextSceneName === 'string') {
@@ -198,6 +217,7 @@ class Map {
     endEvent() {//add flag to event so it doesnt trigger again if player revisits tile
         textMessage.innerText = ""
         buttonContainer.innerHTML = ""
+        this.showInventory()
         this.checkGameOver()//fix submitting game twice when clicking end button at beacon
     }
 
@@ -213,10 +233,10 @@ class Map {
         }
     }
 
-    endGame() {//fully end game, stop all movement
+    endGame() {//fully end game, stop all movement, fix submitting a new loss when pressing arrow key after game already over and map removed
         this.removeMap()
-        api.createUserGame({user:{name: this.player.name}, game:{completed: this.completed, won: this.won}}).then(console.log)
-    }//do something with the end game
+        api.createUserGame({user:{name: this.player.name}, game:{completed: this.completed, won: this.won}})//.then(console.log)
+    }//do something with fetch request - end screen?
 
     findPlayer = () => this.tiles[this.player.position[1]][this.player.position[0]]
     

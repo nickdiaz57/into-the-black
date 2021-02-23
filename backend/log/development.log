@@ -2167,3 +2167,80 @@ Processing by GamesController#create as */*
 Completed 200 OK in 48ms (Views: 1.1ms | ActiveRecord: 36.5ms | Allocations: 3491)
 
 
+Started POST "/users" for ::1 at 2021-02-22 10:45:07 -0500
+  [1m[35m (5.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Shepard", "user"=>{"name"=>"Shepard"}}
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."name" = ? LIMIT ?[0m  [["name", "Shepard"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:14:in `create'
+[active_model_serializers]   [1m[36mGame Load (1.9ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."user_id" = ?[0m  [["user_id", 13]]
+[active_model_serializers]   ↳ app/controllers/users_controller.rb:16:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (85.46ms)
+Completed 200 OK in 149ms (Views: 125.3ms | ActiveRecord: 18.8ms | Allocations: 16576)
+
+
+Started POST "/users" for ::1 at 2021-02-22 10:46:45 -0500
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Shepard", "user"=>{"name"=>"Shepard"}}
+  [1m[36mUser Load (3.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."name" = ? LIMIT ?[0m  [["name", "Shepard"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:14:in `create'
+[active_model_serializers]   [1m[36mGame Load (2.8ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."user_id" = ?[0m  [["user_id", 13]]
+[active_model_serializers]   ↳ app/controllers/users_controller.rb:16:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (8.28ms)
+Completed 200 OK in 16ms (Views: 6.4ms | ActiveRecord: 6.0ms | Allocations: 5353)
+
+
+Started POST "/users" for ::1 at 2021-02-22 10:47:51 -0500
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Shepard", "user"=>{"name"=>"Shepard"}}
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."name" = ? LIMIT ?[0m  [["name", "Shepard"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:14:in `create'
+[active_model_serializers]   [1m[36mGame Load (2.6ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."user_id" = ?[0m  [["user_id", 13]]
+[active_model_serializers]   ↳ app/controllers/users_controller.rb:16:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (8.59ms)
+Completed 200 OK in 15ms (Views: 6.9ms | ActiveRecord: 5.6ms | Allocations: 5353)
+
+
+Started POST "/games" for ::1 at 2021-02-22 10:48:25 -0500
+Processing by GamesController#create as */*
+  Parameters: {"user"=>{"name"=>"Shepard"}, "game"=>{"completed"=>true, "won"=>true}}
+  [1m[36mUser Load (2.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."name" = ? LIMIT ?[0m  [["name", "Shepard"], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:13:in `create'
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/games_controller.rb:15:in `create'
+  [1m[36mGame Create (14.8ms)[0m  [1m[32mINSERT INTO "games" ("completed", "won", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["completed", 1], ["won", 1], ["user_id", 13], ["created_at", "2021-02-22 15:48:25.602893"], ["updated_at", "2021-02-22 15:48:25.602893"]]
+  ↳ app/controllers/games_controller.rb:15:in `create'
+  [1m[35m (15.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/games_controller.rb:15:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.33ms)
+Completed 200 OK in 60ms (Views: 16.7ms | ActiveRecord: 33.2ms | Allocations: 4033)
+
+
+Started POST "/games" for ::1 at 2021-02-22 10:48:27 -0500
+Processing by GamesController#create as */*
+  Parameters: {"user"=>{"name"=>"Shepard"}, "game"=>{"completed"=>true, "won"=>true}}
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."name" = ? LIMIT ?[0m  [["name", "Shepard"], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:13:in `create'
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/games_controller.rb:15:in `create'
+  [1m[36mGame Create (15.7ms)[0m  [1m[32mINSERT INTO "games" ("completed", "won", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["completed", 1], ["won", 1], ["user_id", 13], ["created_at", "2021-02-22 15:48:27.654470"], ["updated_at", "2021-02-22 15:48:27.654470"]]
+  ↳ app/controllers/games_controller.rb:15:in `create'
+  [1m[35m (15.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/games_controller.rb:15:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.27ms)
+Completed 200 OK in 45ms (Views: 2.2ms | ActiveRecord: 33.9ms | Allocations: 3496)
+
+
+Started POST "/users" for ::1 at 2021-02-22 22:57:55 -0500
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Shepard", "user"=>{"name"=>"Shepard"}}
+  [1m[36mUser Load (5.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."name" = ? LIMIT ?[0m  [["name", "Shepard"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:14:in `create'
+[active_model_serializers]   [1m[36mGame Load (4.9ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."user_id" = ?[0m  [["user_id", 13]]
+[active_model_serializers]   ↳ app/controllers/users_controller.rb:16:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (20.8ms)
+Completed 200 OK in 42ms (Views: 20.6ms | ActiveRecord: 10.1ms | Allocations: 5634)
+
+
