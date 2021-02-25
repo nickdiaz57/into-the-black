@@ -38,7 +38,7 @@ class Map {
     displayMap(user) {
         this.html = document.createElement('div')
         this.html.id = 'map'
-        main.append(this.html)
+        mapContainer.append(this.html)
         for (const x in this.tiles) {
             this.tiles[x].forEach((t) => this.html.append(t.html))
         }
@@ -104,7 +104,7 @@ class Map {
     }
 
     showInventory(){
-        inventoryContainer.innerText = `Fuel: ${this.player.fuel}   Health: ${this.player.health}   Scrap: ${this.player.scrap}\nUpgrades: ${this.player.inventory}\nCrew: ${this.player.crew}`
+        inventoryContainer.innerText = `Fuel: ${this.player.fuel}   Health: ${this.player.health}   Scrap: ${this.player.scrap}`//\nUpgrades: ${this.player.inventory}\nCrew: ${this.player.crew}`
     }
     //spread events across map on game start
     addEvents() {
@@ -152,7 +152,7 @@ class Map {
             if (this.canAfford(resource, data.cost[resource])) {
                 btn.onclick = function() {
                     //subtract cost from player
-                    map.player.spendResource(resource, data.cost[resource])
+                    map.player.spendResource(resource, data.cost[resource])//recheck for distress event
                     map.nextScene(btn.next, scenes)
                 }
             } else {
@@ -226,21 +226,36 @@ class Map {
             this.completed = true
             this.won = false
             this.endGame()
+            this.addLossMessage()
         } else if (this.player.position[0] == 29 && this.player.position[1] == 29) {
             this.completed = true
             this.won = true
             this.endGame()
+            this.addWinMessage()
         }
     }
 
     endGame() {//fully end game, stop all movement, fix submitting a new loss when pressing arrow key after game already over and map removed
-        this.removeMap()
+        // this.removeMap()
+        main.innerHTML = ""
         api.createUserGame({user:{name: this.player.name}, game:{completed: this.completed, won: this.won}})//.then(console.log)
     }//do something with fetch request - end screen?
+
+    addLossMessage() {
+        let lossMessage = document.createElement('p')
+        lossMessage.innerText = "Your ship is incapacitated. Home feels further out of reach..."
+        main.append(lossMessage)
+    }
+
+    addWinMessage() {
+        let winMessage = document.createElement('p')
+        winMessage.innerText = "Telemetry data for the next system loads to your terminal as the beacon comes into range.\nOne step closer to home..."
+        main.append(winMessage)
+    }
 
     findPlayer = () => this.tiles[this.player.position[1]][this.player.position[0]]
     
     isValid = (num) => (num >= 0 && num <= 29)
     
-    removeMap = () => this.html.remove()
+    // removeMap = () => main.innerHTML = ""
 }

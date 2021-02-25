@@ -6,7 +6,7 @@ class Player {
         this.fuel = 100
         this.health = 100
         this.scrap = 20
-        this.consumption = 1
+        this.consumption = 2
         this.inventory = []
         this.crew = []
         this.icon = "@"

@@ -2,6 +2,8 @@ const main = document.querySelector('main')
 const api = new APIAdapter
 const map = new Map
 
+const mapContainer = document.getElementById('map-container')
+
 const formContainer = document.getElementById('form-container')
 const form = document.getElementById('name-form')
 
