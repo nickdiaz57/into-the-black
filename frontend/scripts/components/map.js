@@ -1,5 +1,5 @@
 const equals = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
-const seed = {//add back events once you actually learn how to code
+const seed = {//add back events at later date
     OUTPOST: 6, //3,
     // FIRE: 2,
     // SPIDERS: 1,
@@ -92,7 +92,7 @@ class Map {
         newTile.html.innerText = this.player.icon
         if (newTile.event) {this.triggerEvent(newTile.event)}
         this.checkGameOver()
-    }//why do you write garbage like this, refactor it
+    }//REFACTOR
     
     seeTiles() {
         let player = this.player
@@ -141,7 +141,7 @@ class Map {
         }
     }
 
-    createButton(data, id, scenes) {//refactor this complete disaster please, my eyes hurt looking at it
+    createButton(data, id, scenes) {//REFACTOR
         let btn = document.createElement('button')
         btn.innerText = data.value
         btn.id = id
@@ -183,7 +183,7 @@ class Map {
         return ((this.player[resource] - cost) >= 0)
     }
 
-    nextScene(nextSceneName, scenes) {//REFACTOR FOR THE LOVE OF GOD
+    nextScene(nextSceneName, scenes) {//REFACTOR
         if (nextSceneName === 'end') {
             this.endEvent()
         } else if (typeof nextSceneName === 'string') {
